@@ -6,9 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = "Boonnsoir !";
+
+  title = "Un autre titre !";
   isAuth = false;
-  lastUpdate = new Promise(
+  lastUpdate  = new Date();
+  /*lastUpdate = new Promise(
 
     ( resolve, reject ) => {
       var mysql = require('mysql');
@@ -30,7 +32,7 @@ export class AppComponent {
       
       connection.end();
     }
-  );
+  );*/
   appareils = [
     {name : 'grille-pain',status : 0},
     {name : 'autregp' , status : 1},
@@ -38,6 +40,7 @@ export class AppComponent {
   ];
 
   statut = [0,1];
+
   constructor(){
     setTimeout( /*function(){
       console.log( "coucou" );
