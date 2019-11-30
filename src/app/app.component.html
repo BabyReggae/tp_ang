@@ -1,14 +1,16 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
-      <h2 class="text-center">bonsoir</h2>
+      <h2 class="text-center">{{title}}</h2>
+      <p class="center">{{ lastUpdate | async | date }}</p>
       <ul>
-        <app-appareil [appareilName]="appareils[0]"></app-appareil>
-        <app-appareil [appareilName]="appareils[1]"></app-appareil>
-        <app-appareil [appareilName]="appareils[2]"></app-appareil>
+        <app-appareil *ngFor="let aps of appareils" 
+        [appareilName]="aps.name"
+        [appareilStatut]="aps.status"
+        ></app-appareil>
       </ul>
       <button class="btn btn-success" 
-      (click)="onAllumer()" 
+      (click)="onToggleStat()"
       [disabled]="!isAuth">Tout allumer</button>
     </div>
   </div>

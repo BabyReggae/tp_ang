@@ -10,7 +10,8 @@ export class AppareilComponent implements OnInit {
 
   //appareilName = "un joli nom d'appareil :) ";
   @Input() appareilName :string;
-  appareilStatut = 0; 
+  @Input() appareilStatut:string;
+  //appareilStatut = 0; 
 
   constructor() { }
 

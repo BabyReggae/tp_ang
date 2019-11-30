@@ -6,8 +6,38 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  title = "Boonnsoir !";
   isAuth = false;
-  appareils = ['grille-pain',"sardines","brioche"];
+  lastUpdate = new Promise(
+
+    ( resolve, reject ) => {
+      var mysql = require('mysql');
+
+      var connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: '',
+        database: '2p2g'
+      });
+      
+      connection.connect();
+      
+      connection.query('SELECT * from users', function(error, results, fields) {
+        if (error) throw error;
+        console.log( results );
+        
+      });
+      
+      connection.end();
+    }
+  );
+  appareils = [
+    {name : 'grille-pain',status : 0},
+    {name : 'autregp' , status : 1},
+    {name : 'jadore les gp',status : 0}
+  ];
+
+  statut = [0,1];
   constructor(){
     setTimeout( /*function(){
       console.log( "coucou" );
@@ -19,8 +49,10 @@ export class AppComponent {
       console.log( this.isAuth );
     } , 2000);
   }
-  onAllumer(){
-      alert('tout est allumer =)');
+  onToggleStat(){
+      this.appareils.forEach(e => {
+        if(e.status === 1) e.status = 0; else e.status = 1; 
+      });
   }
 
 }

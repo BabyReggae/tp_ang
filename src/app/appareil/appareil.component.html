@@ -1,4 +1,7 @@
-<li class="list-group-item">
+<li class="list-group-item" 
+[ngClass]="{'list-group-item-danger': appareilStatut==0,'list-group-item-success': appareilStatut==1}">
+    <div class="testyClass csDanger" *ngIf="appareilStatut==false"></div>
+    <div class="testyClass csSuccess" *ngIf="appareilStatut==true"></div>    
     <h4>Nom : {{ appareilName }} --- Statut : {{ getStatut() }} </h4>
     <input type="text" class="form-control" [(ngModel)]="appareilName">
 </li>
