@@ -39,7 +39,26 @@ export class AppComponent {
     {name : 'jadore les gp',status : 0}
   ];
 
-  statut = [0,1];
+  posts = [
+    {  
+      title: "premierPost",  
+      content: "Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais bien ecrire uyn truc quiu fasse + que deux lignes...",  
+      loveIts: 0,  
+      created_at: new Date()
+    },
+    {  
+      title: "ohyeah",  
+      content: "Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais bien ecrire uyn truc quiu fasse + que deux lignes...",  
+      loveIts: 0,  
+      created_at: new Date()
+    },
+    {  
+      title: "troisiemePost",  
+      content: "Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais bien ecrire uyn truc quiu fasse + que deux lignes...",  
+      loveIts: 0,  
+      created_at: new Date()
+    }
+  ]
 
   constructor(){
     setTimeout( /*function(){
@@ -47,11 +66,12 @@ export class AppComponent {
       this.isAuth = true;
       console.log( this.isAuth );
     } */()=>{
-      console.log( "coucou" );
-      this.isAuth = true;
-      console.log( this.isAuth );
+      console.log( "timeout check " );
+      //this.isAuth = true;
+      //console.log( this.isAuth );
     } , 2000);
   }
+
   onToggleStat(){
       this.appareils.forEach(e => {
         if(e.status === 1) e.status = 0; else e.status = 1; 

@@ -6,12 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComposantTestComponent } from './composant-test/composant-test.component';
 import { AppareilComponent } from './appareil/appareil.component';
+import { PostComponent } from './post/post.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ComposantTestComponent,
-    AppareilComponent
+    AppareilComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,
