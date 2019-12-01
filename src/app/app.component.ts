@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -6,8 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
-  title = "Un autre titre !";
+  //test inport fontawsome icons
+  
+  faThumbsUp = faThumbsUp;
+  title = "Posts Panel";
   isAuth = false;
   lastUpdate  = new Date();
   /*lastUpdate = new Promise(
@@ -41,19 +44,19 @@ export class AppComponent {
 
   posts = [
     {  
-      title: "premierPost",  
+      title: "Premier post",  
+      content: " Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais   Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais  Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais  Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais  Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais bien ecrire uyn truc quiu fasse + que deux lignes...",  
+      loveIts: 1,  
+      created_at: new Date()
+    },
+    {  
+      title: "Other post",  
       content: "Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais bien ecrire uyn truc quiu fasse + que deux lignes...",  
       loveIts: 0,  
       created_at: new Date()
     },
     {  
-      title: "ohyeah",  
-      content: "Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais bien ecrire uyn truc quiu fasse + que deux lignes...",  
-      loveIts: 0,  
-      created_at: new Date()
-    },
-    {  
-      title: "troisiemePost",  
+      title: "Last post",  
       content: "Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais bien ecrire uyn truc quiu fasse + que deux lignes...",  
       loveIts: 0,  
       created_at: new Date()

@@ -4,21 +4,21 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ComposantTestComponent } from './composant-test/composant-test.component';
 import { AppareilComponent } from './appareil/appareil.component';
 import { PostComponent } from './post/post.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ComposantTestComponent,
     AppareilComponent,
     PostComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

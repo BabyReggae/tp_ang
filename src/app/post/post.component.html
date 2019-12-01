@@ -1,1 +1,16 @@
-<p>post works!</p>
+<li class="list-group-item d-inline-block"
+[ngClass]="{
+    'list-group-item-danger': 0 > loveIts,
+    'list-group-item-success': loveIts > 0
+}">
+    <h4 class="float-left">{{title}}</h4>
+    
+    <h6 class="float-right">Posted_at : {{ created_at |  date: 'd/M/y, hh:mm' }}</h6>
+    <p class="float-left">{{content}}</p>
+    <span>
+        <button (click)="onDownLike()" class="btn btn-danger float-left">Dislike  <fa-icon [icon]="faThumbsDown" style="vertical-align : middle"></fa-icon></button>
+        <button class="btn btn-secondary" disabled>{{ loveIts }}</button>
+        <button (click)="onUpLike()" class="btn btn-success float-right">Like  <fa-icon [icon]="faThumbsUp"></fa-icon></button>
+    </span>
+    
+</li>
