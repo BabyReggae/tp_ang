@@ -52,7 +52,7 @@ export class AppComponent {
     {  
       title: "Other post",  
       content: "Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais bien ecrire uyn truc quiu fasse + que deux lignes...",  
-      loveIts: 0,  
+      loveIts: -1,  
       created_at: new Date()
     },
     {  
