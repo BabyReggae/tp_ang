@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { AppareilComponent } from './appareil/appareil.component';
 import { PostComponent } from './post/post.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AppareilService } from './services/appareil.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FormsModule,
     FontAwesomeModule
   ],
-  providers: [],
+  providers: [
+    AppareilService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import { AppareilService } from './services/appareil.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+
+
+export class AppComponent implements OnInit {
   //test inport fontawsome icons
   
   faThumbsUp = faThumbsUp;
@@ -36,11 +39,8 @@ export class AppComponent {
       connection.end();
     }
   );*/
-  appareils = [
-    {name : 'grille-pain',status : 0},
-    {name : 'autregp' , status : 1},
-    {name : 'jadore les gp',status : 0}
-  ];
+
+  appareils:any[];
 
   posts = [
     {  
@@ -63,7 +63,7 @@ export class AppComponent {
     }
   ]
 
-  constructor(){
+  constructor( private appareilService: AppareilService ){
     setTimeout( /*function(){
       console.log( "coucou" );
       this.isAuth = true;
@@ -73,6 +73,10 @@ export class AppComponent {
       //this.isAuth = true;
       //console.log( this.isAuth );
     } , 2000);
+  }
+
+  ngOnInit() {
+    this.appareils = this.appareilService.appareils;
   }
 
   onToggleStat(){
