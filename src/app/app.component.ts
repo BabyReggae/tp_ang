@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   
   faThumbsUp = faThumbsUp;
   title = "Posts Panel";
-  isAuth = false;
+  isAuth = true;
   lastUpdate  = new Date();
   /*lastUpdate = new Promise(
 
@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
     }
   );*/
 
-  appareils:any[];
+  appareils:any[];  
 
   posts = [
     {  
@@ -84,5 +84,20 @@ export class AppComponent implements OnInit {
         if(e.status === 1) e.status = 0; else e.status = 1; 
       });
   }
+
+  onAllumer() {
+    this.appareilService.switchOnAll();
+  }
+
+  onEteindre() {
+      if(confirm('Etes-vous sûr de vouloir éteindre tous vos appareils ?')) {
+        this.appareilService.switchOffAll();
+      } else {
+        return null;
+      }
+  }
+
+
+
 
 }

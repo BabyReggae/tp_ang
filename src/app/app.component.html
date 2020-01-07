@@ -6,20 +6,23 @@
           <h2 class="text-center">{{title}}</h2>
           
           <ul>
-            <app-post *ngFor="let p of posts"
+            <!--<app-post *ngFor="let p of posts"
             [title]="p.title"
             [content]="p.content" 
             [loveIts]="p.loveIts"
             [created_at]="p.created_at">
-            </app-post>
-            <!--<app-appareil *ngFor="let aps of appareils" 
+            </app-post>-->
+            <app-appareil *ngFor="let aps of appareils; let i = index" 
             [appareilName]="aps.name"
             [appareilStatut]="aps.status"
-            ></app-appareil>-->
+            [index]="i"></app-appareil>
           </ul>
-          <!--<button class="btn btn-success" 
-          (click)="onToggleStat()"
-          [disabled]="!isAuth">Tout allumer</button>-->
+          <button class="btn btn-success"
+          [disabled]="!isAuth"
+          (click)="onAllumer()">Tout allumer</button>
+          <button class="btn btn-danger"
+          [disabled]="!isAuth"
+          (click)="onEteindre()">Tout éteindre</button>
         </div>
       </div>
     </div>

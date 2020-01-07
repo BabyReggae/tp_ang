@@ -8,12 +8,16 @@ import { AppareilComponent } from './appareil/appareil.component';
 import { PostComponent } from './post/post.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppareilService } from './services/appareil.service';
+import { AuthComponent } from './auth/auth.component';
+import { AppareilViewComponent } from './appareil-view/appareil-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AppareilComponent,
-    PostComponent
+    PostComponent,
+    AuthComponent,
+    AppareilViewComponent
   ],
   imports: [
     BrowserModule,
