@@ -1,1 +1,106 @@
-<p>auth works!</p>
+	<div class="limiter">
+		<div class="contLogin" id="Login">
+			<div class="wrapLogin">
+				<form class="formLogin">
+
+					<span class="titleLogin">
+						Bobbles
+					</span>
+
+					
+					<div class="labelContLogin	">
+						<span class="txt">
+							Username
+						</span>
+					</div>
+					<div class="imputContLogin" data-validate = "Username is required">
+						<input class="imputLogin" type="text" name="username" >
+					</div>
+					
+					<div class="labelContLogin">
+						<span class="txt">
+							Password
+						</span>
+					</div>
+
+					<div class="imputContLogin" data-validate = "Password is required">
+						<input class="imputLogin" type="password" name="pass" >
+					</div>
+
+					<div class="btnContDarkLogin">
+						<button class="btnDarkLogin">
+							Sign In
+						</button>
+					</div>
+
+					<div class="linkTextLogin">
+						<span class="textSmall">
+							New dude ?
+						</span>
+
+						<a href="#" class="textSmall" (click)="toggleLoginRegister('Login')">
+							Sign up now
+						</a>
+					</div>
+				</form>
+			</div>
+        </div>
+        
+		<div class="contLogin" id="Register" style="display: none;">
+			<div class="wrapLogin">
+				<form class="formLogin">
+
+					<span class="titleLogin">
+						Bobbles
+					</span>
+					
+					<div class="labelContLogin	">
+						<span class="txt">
+							Username
+						</span>
+					</div>
+					<div class="imputContLogin" data-validate = "Username is required">
+						<input class="imputLogin" type="text" name="username" >
+					</div>
+					
+					<div class="labelContLogin">
+						<span class="txt">
+							Password
+						</span>
+					</div>
+
+					<div class="imputContLogin" data-validate = "Password is required">
+						<input class="imputLogin" type="password" name="pass" >
+					</div>
+					<div class="labelContLogin">
+						<span class="txt">
+							Repeat Password
+						</span>
+					</div>
+
+					<div class="imputContLogin" data-validate = "Password is required">
+						<input class="imputLogin" type="password" name="pass" >
+                    </div>
+                    
+
+					<div class="btnContDarkLogin">
+						<button class="btnDarkLogin">
+							Register
+						</button>
+					</div>
+
+					<div class="linkTextLogin">
+						<span class="textSmall">
+							Nothing to do here ?
+						</span>
+
+						<a href="#" class="textSmall" (click)="toggleLoginRegister('Register')">
+							Sign in now
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+
+
+	</div>

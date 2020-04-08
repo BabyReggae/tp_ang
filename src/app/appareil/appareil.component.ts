@@ -35,5 +35,4 @@ export class AppareilComponent implements OnInit {
     }
   }
 
-
 }

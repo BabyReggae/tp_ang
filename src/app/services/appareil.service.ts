@@ -4,18 +4,18 @@ export class AppareilService {
         {name : 'grille-pain',status : 0},
         {name : 'autregp' , status : 1},
         {name : 'jadore les gp',status : 0}
-      ]; 
+    ]; 
 
     /* 1 == allumé //  0 == éteind*/
     switchOnAll() {
         for(let appareil of this.appareils) {
-          appareil.status = 1;
+            appareil.status = 1;
         }
     }
     
     switchOffAll() {
         for(let appareil of this.appareils) {
-          appareil.status = 0;
+            appareil.status = 0;
         }
     }
 

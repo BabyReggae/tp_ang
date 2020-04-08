@@ -2,16 +2,10 @@
   <div id="page-content">
     <div class="container text-center">
       <div class="row justify-content-center">
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
           <h2 class="text-center">{{title}}</h2>
           
           <ul>
-            <!--<app-post *ngFor="let p of posts"
-            [title]="p.title"
-            [content]="p.content" 
-            [loveIts]="p.loveIts"
-            [created_at]="p.created_at">
-            </app-post>-->
             <app-appareil *ngFor="let aps of appareils; let i = index" 
             [appareilName]="aps.name"
             [appareilStatut]="aps.status"
@@ -23,13 +17,17 @@
           <button class="btn btn-danger"
           [disabled]="!isAuth"
           (click)="onEteindre()">Tout éteindre</button>
-        </div>
+        </div> -->
+        
+        <app-auth></app-auth>
+
+
       </div>
     </div>
   </div>
   <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
     <div class="container text-center">
-      <small>Copyright &copy; NoName </small>
+      <small>Copyright &copy; None </small>
     </div>
   </footer>
 </body>

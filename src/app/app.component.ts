@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { AppareilService } from './services/appareil.service';
 
+//parce que c'est pas drole sinon
+declare var $:any;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -39,8 +42,13 @@ export class AppComponent implements OnInit {
       connection.end();
     }
   );*/
+    // $:any;
+
+
 
   appareils:any[];  
+
+
 
   posts = [
     {  
