@@ -1,7 +1,9 @@
-html,
-body {
+#bodyGuard{
   height: 100vh;
+  background: #007bff;
+  background: linear-gradient(to right, #0062E6, #33AEFF);
 }
+
 
 #page-content {
   flex: 1 0 auto;
@@ -11,9 +13,6 @@ body {
   flex-shrink: 0;
 }
 
-/* Other Classes for Page Styling */
-
-body {
-  background: #007bff;
-  background: linear-gradient(to right, #0062E6, #33AEFF);
+.navbar-right{
+  margin: 0 0 0 65vw;
 }

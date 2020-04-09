@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { AppareilService } from './services/appareil.service';
+import { AuthService } from './services/auth.service';
+import { Subscription, Observable, interval } from 'rxjs';
+
+
 
 //parce que c'est pas drole sinon
 declare var $:any;
@@ -14,11 +18,65 @@ declare var $:any;
 
 export class AppComponent implements OnInit {
   //test inport fontawsome icons
+    constructor(private authService: AuthService){
+
+    }
+
+    secondes: number;
+    counterSubscription: Subscription;
   
-  faThumbsUp = faThumbsUp;
-  title = "Posts Panel";
-  isAuth = true;
-  lastUpdate  = new Date();
+    ngOnInit() {
+
+      const counter = interval(1000);
+      this.counterSubscription = counter.subscribe(
+        (value) => {
+          // console.log( value );
+          this.secondes = value;
+        },
+        (error) => {
+          console.log('Uh-oh, an error occurred! : ' + error);
+        },
+        () => {
+          console.log('Observable complete!');
+        }
+      );
+    }
+  
+    ngOnDestroy() {
+      this.counterSubscription.unsubscribe();
+    }
+
+  onLogOut(){
+    this.authService.signOut();
+  }
+
+
+  // faThumbsUp = faThumbsUp;
+  // title = "Posts Panel";
+  // lastUpdate  = new Date();
+
+  // posts = [
+  //   {  
+  //     title: "Premier post",  
+  //     content: " Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais   Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais  Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais  Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais  Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais bien ecrire uyn truc quiu fasse + que deux lignes...",  
+  //     loveIts: 1,  
+  //     created_at: new Date()
+  //   },
+  //   {  
+  //     title: "Other post",  
+  //     content: "Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais bien ecrire uyn truc quiu fasse + que deux lignes...",  
+  //     loveIts: -1,  
+  //     created_at: new Date()
+  //   },
+  //   {  
+  //     title: "Last post",  
+  //     content: "Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais bien ecrire uyn truc quiu fasse + que deux lignes...",  
+  //     loveIts: 0,  
+  //     created_at: new Date()
+  //   }
+  // ]
+
+
   /*lastUpdate = new Promise(
 
     ( resolve, reject ) => {
@@ -46,64 +104,13 @@ export class AppComponent implements OnInit {
 
 
 
-  appareils:any[];  
+  // appareils:any[];  
 
 
 
-  posts = [
-    {  
-      title: "Premier post",  
-      content: " Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais   Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais  Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais  Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais  Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais bien ecrire uyn truc quiu fasse + que deux lignes...",  
-      loveIts: 1,  
-      created_at: new Date()
-    },
-    {  
-      title: "Other post",  
-      content: "Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais bien ecrire uyn truc quiu fasse + que deux lignes...",  
-      loveIts: -1,  
-      created_at: new Date()
-    },
-    {  
-      title: "Last post",  
-      content: "Loremipsum dolor sit amet et j'en passe d'autre parce oui moi pas parler le lorem dude maius fallais bien ecrire uyn truc quiu fasse + que deux lignes...",  
-      loveIts: 0,  
-      created_at: new Date()
-    }
-  ]
 
-  constructor( private appareilService: AppareilService ){
-    setTimeout( /*function(){
-      console.log( "coucou" );
-      this.isAuth = true;
-      console.log( this.isAuth );
-    } */()=>{
-      console.log( "timeout check " );
-      //this.isAuth = true;
-      //console.log( this.isAuth );
-    } , 2000);
-  }
 
-  ngOnInit() {
-    this.appareils = this.appareilService.appareils;
-  }
 
-  onToggleStat(){
-      this.appareils.forEach(e => {
-        if(e.status === 1) e.status = 0; else e.status = 1; 
-      });
-  }
-
-  onAllumer() {
-    this.appareilService.switchOnAll();
-  }
-
-  onEteindre() {
-      if(confirm('Etes-vous sûr de vouloir éteindre tous vos appareils ?')) {
-        this.appareilService.switchOffAll();
-      } else {
-        return null;
-      }
-  }
 
 
 

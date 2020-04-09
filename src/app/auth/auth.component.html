@@ -28,7 +28,7 @@
 					</div>
 
 					<div class="btnContDarkLogin">
-						<button class="btnDarkLogin">
+						<button class="btnDarkLogin" (click)="onSignIn()">
 							Sign In
 						</button>
 					</div>
@@ -38,7 +38,7 @@
 							New dude ?
 						</span>
 
-						<a href="#" class="textSmall" (click)="toggleLoginRegister('Login')">
+						<a class="textSmall" (click)="toggleLoginRegister('Login')" (mouseenter)="a=a">
 							Sign up now
 						</a>
 					</div>

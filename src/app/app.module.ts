@@ -10,6 +10,25 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppareilService } from './services/appareil.service';
 import { AuthComponent } from './auth/auth.component';
 import { AppareilViewComponent } from './appareil-view/appareil-view.component';
+import { Routes, RouterModule } from '@angular/router';
+import { AuthService } from './services/auth.service';
+import { NotFound404Component } from './not-found404/not-found404.component';
+import { AuthGuard } from './services/authGuard.service';
+import { AppareilEditComponent } from './appareil-edit/appareil-edit.component';
+
+
+const appRoutes: Routes = [
+  { path: 'auth', component: AuthComponent },
+
+  { path: 'appareils', canActivate : [ AuthGuard ],component: AppareilViewComponent },
+  { path: 'edit', canActivate : [ AuthGuard ],component: AppareilEditComponent },
+
+
+  { path: '', component: AuthComponent },
+  { path : 'not-found', component : NotFound404Component },
+  { path : '**', redirectTo : 'not-found' }
+];
+
 
 @NgModule({
   declarations: [
@@ -17,16 +36,21 @@ import { AppareilViewComponent } from './appareil-view/appareil-view.component';
     AppareilComponent,
     PostComponent,
     AuthComponent,
-    AppareilViewComponent
+    AppareilViewComponent,
+    NotFound404Component,
+    AppareilEditComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
-    AppareilService
+    AppareilService,
+    AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
