@@ -1,5 +1,10 @@
 import { Subject } from 'rxjs/internal/Subject';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
+
+
+@Injectable()
 export class AppareilService {
     appareilsSubject = new Subject<any[]>();
     private appareils = [
@@ -19,6 +24,21 @@ export class AppareilService {
             status: 0
         }
     ];
+
+    constructor( private httpClient: HttpClient ) { }
+
+    logFromBdd(){
+        // Make the HTTP request:
+        this.httpClient
+        .get('http://localhost:8080/get_allUsers?param1=truc')
+        .subscribe(data => console.log("data1 : " , data));
+
+        this.httpClient
+        .post('http://localhost:8080/post_test', { coucou : "bonsoir "} )
+        .subscribe(data => console.log( "data2 : ", data));
+
+    }
+
 
     emitAppareilSubject() {
         this.appareilsSubject.next(this.appareils.slice());
@@ -61,6 +81,8 @@ export class AppareilService {
         this.appareils.push(appareilObject);
         this.emitAppareilSubject();
     }
+
+
 
 
 }

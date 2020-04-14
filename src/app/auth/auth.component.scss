@@ -22,8 +22,15 @@
         src: url('../../assets/fonts/montserrat/Montserrat-SemiBold.ttf'); 
       }
   
+    .disabled{
+        cursor: not-allowed;
+    }
+    .disabled:hover{
+        cursor: not-allowed;
+    }
 
 
+      
 .contLogin{
     -webkit-tap-highlight-color: transparent;
     font-size: 1rem;
@@ -46,9 +53,10 @@
     background-repeat: no-repeat;
     // background-color: #352929;
     background-color: transparent;
-    
+}
 
-
+#Register{
+    margin-top: 1vh;
 }
 
 .wrapLogin{

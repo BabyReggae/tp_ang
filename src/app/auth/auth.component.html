@@ -1,7 +1,7 @@
 	<div class="limiter">
 		<div class="contLogin" id="Login">
 			<div class="wrapLogin">
-				<form class="formLogin">
+				<form class="formLogin" (ngSubmit)="onSignIn(g)" #g="ngForm">
 
 					<span class="titleLogin">
 						Bobbles
@@ -14,7 +14,7 @@
 						</span>
 					</div>
 					<div class="imputContLogin" data-validate = "Username is required">
-						<input class="imputLogin" type="text" name="username" >
+						<input class="imputLogin" type="text" name="username" ngModel required >
 					</div>
 					
 					<div class="labelContLogin">
@@ -24,11 +24,16 @@
 					</div>
 
 					<div class="imputContLogin" data-validate = "Password is required">
-						<input class="imputLogin" type="password" name="pass" >
+						<input class="imputLogin" type="password" name="pwd" ngModel required >
 					</div>
 
 					<div class="btnContDarkLogin">
-						<button class="btnDarkLogin" (click)="onSignIn()">
+						<button class="btnDarkLogin"
+						type="submit"
+						[disabled]="g.invalid"
+						[ngClass]="{
+							'disabled': g.invalid
+						}">
 							Sign In
 						</button>
 					</div>
@@ -48,21 +53,30 @@
         
 		<div class="contLogin" id="Register" style="display: none;">
 			<div class="wrapLogin">
-				<form class="formLogin">
+				<form class="formLogin" (ngSubmit)="onSubmit(f)" #f="ngForm">
 
-					<span class="titleLogin">
+					<span class="titleLogin" style="padding-bottom: 10px;">
 						Bobbles
 					</span>
 					
-					<div class="labelContLogin	">
+					<div class="labelContLogin">
 						<span class="txt">
 							Username
 						</span>
 					</div>
 					<div class="imputContLogin" data-validate = "Username is required">
-						<input class="imputLogin" type="text" name="username" >
+						<input class="imputLogin" type="text" name="username" ngModel required>
 					</div>
 					
+					<div class="labelContLogin">
+						<span class="txt">
+							Email
+						</span>
+					</div>
+					<div class="imputContLogin" data-validate = "Email is required">
+						<input class="imputLogin" type="email" name="email" [email]="true" ngModel required>
+					</div>
+
 					<div class="labelContLogin">
 						<span class="txt">
 							Password
@@ -70,7 +84,7 @@
 					</div>
 
 					<div class="imputContLogin" data-validate = "Password is required">
-						<input class="imputLogin" type="password" name="pass" >
+						<input class="imputLogin" type="password" name="pwd" ngModel required>
 					</div>
 					<div class="labelContLogin">
 						<span class="txt">
@@ -79,12 +93,17 @@
 					</div>
 
 					<div class="imputContLogin" data-validate = "Password is required">
-						<input class="imputLogin" type="password" name="pass" >
+						<input class="imputLogin" type="password" name="pwdRepeat" ngModel required>
                     </div>
                     
 
 					<div class="btnContDarkLogin">
-						<button class="btnDarkLogin">
+						<button type="submit" 
+						class="btnDarkLogin" 
+						[disabled]="f.invalid"
+						[ngClass]="{
+							'disabled': f.invalid
+						}">
 							Register
 						</button>
 					</div>
@@ -94,7 +113,7 @@
 							Nothing to do here ?
 						</span>
 
-						<a href="#" class="textSmall" (click)="toggleLoginRegister('Register')">
+						<a id="gotoSignIn" class="textSmall" (click)="toggleLoginRegister('Register')">
 							Sign in now
 						</a>
 					</div>

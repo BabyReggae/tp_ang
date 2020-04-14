@@ -115,7 +115,9 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/external_js/test.js"
+            ]
           }
         },
         "lint": {

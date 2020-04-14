@@ -2,11 +2,14 @@
   height: 100vh;
   background: #007bff;
   background: linear-gradient(to right, #0062E6, #33AEFF);
+  overflow: hidden;
 }
 
 
 #page-content {
   flex: 1 0 auto;
+  overflow: auto;
+  max-height: 87vh;
 }
 
 #sticky-footer {
@@ -15,4 +18,10 @@
 
 .navbar-right{
   margin: 0 0 0 65vw;
+}
+.disabled{
+  cursor: not-allowed;
+}
+.disabled:hover{
+  cursor: not-allowed;
 }

@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { AppareilService } from './services/appareil.service';
 import { AuthService } from './services/auth.service';
+import { AuthComponent } from './auth/auth.component'
 import { Subscription, Observable, interval } from 'rxjs';
-
 
 
 //parce que c'est pas drole sinon
 declare var $:any;
+declare var testClass:any;
+declare var start:any;//FROM BOBBLES JS FILE
+
+
 
 @Component({
   selector: 'app-root',
@@ -22,10 +26,15 @@ export class AppComponent implements OnInit {
 
     }
 
+    
     secondes: number;
     counterSubscription: Subscription;
   
     ngOnInit() {
+
+      // testClass.testMethode();
+      start();
+
 
       const counter = interval(1000);
       this.counterSubscription = counter.subscribe(
@@ -40,15 +49,20 @@ export class AppComponent implements OnInit {
           console.log('Observable complete!');
         }
       );
+
+
     }
   
     ngOnDestroy() {
       this.counterSubscription.unsubscribe();
     }
 
-  onLogOut(){
-    this.authService.signOut();
-  }
+    onLogOut(){
+    
+      let token : string = localStorage.getItem('token');
+      this.authService.signOut( token );
+      // this.AuthComponent.aut = this.authService.isAuth
+    }
 
 
   // faThumbsUp = faThumbsUp;

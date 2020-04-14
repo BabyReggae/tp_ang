@@ -15,9 +15,12 @@ export class AppareilEditComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    this.appareilService.logFromBdd();
+    console.log("JUST ABOVE");
   }
 
   onSubmit(form: NgForm) {
+    console.log( form );
     const name = form.value['name'];
     const status = form.value['status'];
     this.appareilService.addAppareil(name, status);
