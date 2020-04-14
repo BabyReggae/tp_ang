@@ -27,6 +27,7 @@ import { AccValidationComponent } from './acc-validation/acc-validation.componen
 
 const appRoutes: Routes = [
   { path: 'auth', component: AuthComponent },
+  { path : 'account-validation/:token', component: AccValidationComponent  },
 
   { path: 'appareils', canActivate : [ AuthGuard ],component: AppareilViewComponent },
   { path: 'edit', canActivate : [ AuthGuard ],component: AppareilEditComponent },
@@ -70,4 +71,8 @@ const appRoutes: Routes = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+
+  
+ }

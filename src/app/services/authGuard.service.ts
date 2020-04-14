@@ -2,13 +2,17 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { AlertService } from '../alert';
 
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
   constructor(private authService: AuthService,
-              private router: Router) { }
+              private router: Router,
+              protected alertService: AlertService,
+              
+              ) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -16,7 +20,7 @@ export class AuthGuard implements CanActivate {
     if(this.authService.isAuth) {
       return true;
     } else {
-      console.log("acces denied, pls log in before ")
+      this.alertService.error(' Acces denied, pls log in before ');
       this.router.navigate(['/auth']);
     }
   }

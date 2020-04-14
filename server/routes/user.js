@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 var mysql = require('mysql');
 var randtoken = require('rand-token');
 var nodemailer = require('nodemailer');
-
+var DeviceDetector = require('device-detector-js');
 
 const tokenDuration = 30;/* days nb before token expiration */ 
 
@@ -39,7 +39,7 @@ router.get('/', (req,res,next) => {
 	next();
 });
 
-router.get('/validation_user?', function(req ,res  ) {
+router.get('/validation_user?', (req ,res )=> {
 	let params = req.query;
 	if ( ! params.token ) res.send( false );
 
@@ -48,14 +48,27 @@ router.get('/validation_user?', function(req ,res  ) {
 
 	let reqUpd = `UPDATE player SET confirmation_date= '${ DateNow }' WHERE  confirmation_code= '${ params.token }'`;
 
-    connection.query( reqUpd, function(error, results, fields) {    
-      if (error) throw error;
-      	console.log( results );
-        res.json( results );
-    });
+	let updCallback = new Promise( (resolve,reject) => {
+	    connection.query( reqUpd, function(error, results, fields) {    
+	      if (error) throw error;
+	      	console.log( results );
+	        resolve( results );
+	    });
+	})
+
+	updCallback.then( (info) => {
+		let outputReq = `SELECT email FROM player WHERE confirmation_code='${ params.token }'`;
+	    connection.query( outputReq, function(error, results, fields) {    
+	      if (error) throw error;
+	      console.log( results , fields );
+	      res.json( results );
+	    });
+
+		
+	})
 });
 
-router.post('/add_user' , function(req ,res ){
+router.post('/add_user' , (req ,res )=>{
 
     let user = req.body.user;
     let confirmation_code = randtoken.generate(16);
@@ -80,7 +93,7 @@ router.post('/add_user' , function(req ,res ){
 			  from: 'g.dock666@gmail.com',
 			  to: 'dockguillaume@gmail.com',
 			  subject: 'Bobbles account validation',
-			  text: 'Please follow de link below for your Bobbles\'s acc validation\n\r\n http://localhost:8080/api/user/validation_user?token=' + confirmation_code
+			  text: 'Please follow de link below for your Bobbles\'s acc validation\n\r\n http://localhost:4200/account-validation/' + confirmation_code
 			};
 
 			transporter.sendMail(mailOptions, function(error, info){
@@ -96,7 +109,7 @@ router.post('/add_user' , function(req ,res ){
     });
 })
 
-router.post('/log_user' , function(req ,res ){
+router.post('/log_user' , (req ,res )=>{
 
     let loginReq = req.body.loginReq;
     let reqSql = `SELECT p.id FROM player p WHERE p.user_name = '${loginReq.username}' AND p.PASSWORD = '${loginReq.pwd}'`;
@@ -133,7 +146,7 @@ router.post('/log_user' , function(req ,res ){
     });
 })
 
-router.post('/unlog_user' , function(req ,res ){
+router.post('/unlog_user' , (req ,res )=>{
 
     let token = req.body.token;
     let reqSel = `SELECT pt.id FROM player_token pt WHERE pt.token = '${ token }'`;
@@ -156,7 +169,8 @@ router.post('/unlog_user' , function(req ,res ){
 
 		let reqDel = `DELETE FROM player_token WHERE id = '${value[0].id}';`
 
-		console.log( reqDel );
+		console.log("ask_tokenValidity Succes=> ", value );
+
 
 	    connection.query( reqDel , function(error, results, fields) {
 	    	if (error) throw error;
@@ -164,11 +178,53 @@ router.post('/unlog_user' , function(req ,res ){
 	    });
 	})
 	.catch(function(value){
-		console.log("log de error => " , value);
+		console.log(" delete token ERROR => " , value);
 		res.json( value );
 	});
 })
 
+router.post('/ask_tokenValidity' , (req,res)=>{
+
+    let token = req.body.token;
+    let reqSel = `SELECT pt.id FROM player_token pt WHERE pt.token = '${ token }'`;
+
+	const getTokenId = new Promise(function(resolve, reject) {
+
+	    connection.query( reqSel , function(error, results, fields) {
+			if (error) {
+				reject( { code : error.code, message : error.sqlMessage  } );
+			}else{
+				resolve( results );
+			}
+	    });
+	});
+
+	getTokenId
+	.then(function(value) {
+		console.log("ask_tokenValidity Succes=> ", value );
+		if ( value[0] ) res.json( true );else res.json( false );
+
+	})
+	.catch(function(value){
+		console.log("log de error => " , value);
+		res.json( false );
+	});
+})
+
+
+
+
+
+router.get('/test_device' , (req, res ) => {
+
+	console.log();
+
+	const deviceDetector = new DeviceDetector();
+	const userAgent = req.headers['user-agent'];
+	const device = deviceDetector.parse(userAgent);
+	 
+	console.log(device);
+})
 
 
 module.exports = router;

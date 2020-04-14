@@ -4,6 +4,7 @@ import { newUser } from '../models/newUser.model';
 import { loginUser } from '../models/loginUser.model';
 import { Router } from '@angular/router';
 import { AlertService } from '../alert';
+import { promise } from 'protractor';
 
 declare var $:any;
 
@@ -19,6 +20,34 @@ export class AuthService {
         keepAfterRouteChange: true
     };
 
+
+    session_watcher( routerEventInfo : any ){
+        let connexionToken:any = localStorage.getItem('token');
+        //check if exist 
+        let tokenIsValid = new Promise(
+            (resolve, reject) => {
+                this.httpClient
+                .post('http://localhost:8080/api/user/ask_tokenValidity', { token :  connexionToken } )
+                .subscribe( (data : any) => {
+                    console.log( "Data from token auto check => " , data );
+                    if( data ) resolve(routerEventInfo); else reject();
+                });
+
+            }   
+        );
+
+        tokenIsValid
+        .then(( currentRoute : string )=>{
+            this.isAuth = true;
+            if( ['/auth' , '', '/'].includes( currentRoute) ) this.router.navigate(['/appareils']);
+        })
+        .catch(()=>{
+            this.isAuth = false;
+        })
+        //check if expiration timed out
+
+        //trigger isAuth = true if previous step ok 
+    }
 
     signIn( loginUser : loginUser ) {
         return new Promise(
@@ -52,6 +81,7 @@ export class AuthService {
             .post('http://localhost:8080/api/user/unlog_user', { token :  token } )
             .subscribe( (data : any) => {
                 this.isAuth = false;
+                console.log( data );
                 resolve(data);
             });
 
@@ -74,5 +104,31 @@ export class AuthService {
             this.alertService.error( data.message , this.alertOptions );
             
         });
+    }
+
+    validation( token : string ){
+        return new Promise( (resolve, reject) => {
+
+            this.httpClient
+            .get('http://localhost:8080/api/user/validation_user?token='+ token )
+            .subscribe((data : any) => {
+    
+                // if( data.message === "" ) {
+                //     this.alertService.success( 'Compte crée avec succes ! =)' , this.alertOptions );
+                //     return true;
+                // } 
+    
+                // this.alertService.error( data.message , this.alertOptions );
+                console.log(" data reveive by ang after get on acc validation => " ,  data );
+                resolve( data );
+                // if( 1 == 2 ) reject(  data );
+    
+    
+            });
+
+        });
+
+
+
     }
 }
