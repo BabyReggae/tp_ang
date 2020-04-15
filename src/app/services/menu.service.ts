@@ -9,7 +9,7 @@ export class MenuService{
         { name : "Jouer" , path : "sologame" },//k
         { name : "Boutique" , path : "shop" },
         { name : "Profil" , path : "profil" },
-        { name : "Classement" , path : "rank" },
+        // { name : "Classement" , path : "rank" },
         { name : "Paramêtres" , path : "settings" },
         { name : "Deconnexion" , path : "logout" }
     ];

@@ -16,6 +16,10 @@
   flex-shrink: 0;
 }
 
+.navbarbar{
+  height: 6vh;
+}
+
 .navbar-right{
   margin: 0 0 0 65vw; 
 }
@@ -41,7 +45,7 @@
 
 .menu-cont{
   position: absolute;
-  top: 10vh;
+  top: 6vh;
   height: 80vh;
   min-width: 18vw;
   box-sizing: content-box;
