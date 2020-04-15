@@ -11,6 +11,8 @@ export class AppareilComponent implements OnInit {
 
   //appareilName = "un joli nom d'appareil :) ";
   @Input() appareilName :string;
+  @Input() csInfo : string;
+
   @Input() appareilStatut:number;
   @Input() index:number;
   //appareilStatut = 0; 
@@ -18,7 +20,7 @@ export class AppareilComponent implements OnInit {
   constructor(private appareilService: AppareilService) {
 
     console.log( "coucou" );
-   }
+  }
 
   ngOnInit() {
   }

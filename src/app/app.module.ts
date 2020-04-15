@@ -20,7 +20,16 @@ import { UserService } from './services/user.service';
 import { CanvasComponent } from './canvas/canvas.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AlertModule } from './alert';
+
 import { AccValidationComponent } from './acc-validation/acc-validation.component';
+import { SoloGameComponent } from './solo-game/solo-game.component';
+import { ShopComponent } from './shop/shop.component';
+import { ProfilComponent } from './profil/profil.component';
+import { RankComponent } from './rank/rank.component';
+import { SettingsComponent } from './settings/settings.component';
+import { LogoutComponent } from './logout/logout.component';
+import { MenuService } from './services/menu.service';
+import { MenuComponent } from './menu/menu.component';
 
 
 
@@ -32,6 +41,15 @@ const appRoutes: Routes = [
   { path: 'appareils', canActivate : [ AuthGuard ],component: AppareilViewComponent },
   { path: 'edit', canActivate : [ AuthGuard ],component: AppareilEditComponent },
   { path: 'user', canActivate : [ AuthGuard ],component: UserListComponent },
+
+  /** main APPs Routes */
+  { path: 'sologame', canActivate : [ AuthGuard ],component: SoloGameComponent },
+  { path: 'shop', canActivate : [ AuthGuard ],component: ShopComponent },
+  { path: 'profil', canActivate : [ AuthGuard ],component: ProfilComponent },
+  { path: 'rank', canActivate : [ AuthGuard ],component: RankComponent },
+  { path: 'settings', canActivate : [ AuthGuard ],component: SettingsComponent },
+  { path: 'logout', canActivate : [ AuthGuard ],component: LogoutComponent },
+  /** end main routes */
 
 
   { path: '', component: AuthComponent },
@@ -51,7 +69,15 @@ const appRoutes: Routes = [
     AppareilEditComponent,
     UserListComponent,
     CanvasComponent,
-    AccValidationComponent
+    AccValidationComponent,
+    SoloGameComponent,
+    ShopComponent,
+    ProfilComponent,
+    RankComponent,
+    SettingsComponent,
+    LogoutComponent,
+    MenuComponent
+
   ],
   imports: [
     BrowserModule,
@@ -60,14 +86,16 @@ const appRoutes: Routes = [
     FormsModule,
     FontAwesomeModule,
     RouterModule.forRoot(appRoutes),
-    AlertModule
+    AlertModule,
+
   ],
   providers: [
     AppareilService,
     AuthService,
     AuthGuard,
     UserService,
-    HttpClientModule
+    HttpClientModule,
+    MenuService
   ],
   bootstrap: [AppComponent]
 })
@@ -75,4 +103,4 @@ export class AppModule {
 
 
   
- }
+}

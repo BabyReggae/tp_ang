@@ -17,7 +17,7 @@
 }
 
 .navbar-right{
-  margin: 0 0 0 65vw;
+  margin: 0 0 0 65vw; 
 }
 .disabled{
   cursor: not-allowed;
@@ -25,3 +25,25 @@
 .disabled:hover{
   cursor: not-allowed;
 }
+
+/* ALERT CLASS */
+.cs-alert{
+  position: absolute;
+  bottom: 100px;
+  height: auto;
+  background-color: transparent;
+  width: 60%;
+  z-index: 9999;
+}
+
+
+/* MENU CLASS */
+
+.menu-cont{
+  position: absolute;
+  top: 10vh;
+  height: 80vh;
+  min-width: 18vw;
+  box-sizing: content-box;
+}
+

@@ -34,9 +34,8 @@ var connection = mysql.createConnection({
 //////////////////////////////////////////////////////// =>
 
 
-router.get('/', (req,res,next) => {
-	res.send('users !! ');
-	next();
+router.get('/', (req,res) => {
+	res.send('user');
 });
 
 router.get('/validation_user?', (req ,res )=> {
@@ -58,15 +57,36 @@ router.get('/validation_user?', (req ,res )=> {
 
 	updCallback.then( (info) => {
 		let outputReq = `SELECT email FROM player WHERE confirmation_code='${ params.token }'`;
-	    connection.query( outputReq, function(error, results, fields) {    
+	    connection.query( outputReq, (error, results, fields)=> {    
 	      if (error) throw error;
-	      console.log( results , fields );
 	      res.json( results );
 	    });
 
 		
 	})
 });
+
+router.get('/emailIsValid_user?', (req,res)=>{
+	let params = req.query;
+	if ( ! params.token ) res.send( false );
+
+
+	let sql = `SELECT p.confirmation_date FROM player p WHERE p.id = (SELECT pt.player_id FROM player_token pt WHERE pt.token = '${params.token}')`;
+
+	connection.query( sql, (error, results, fields)=>{
+
+		//err sql case
+		if ( ! results[0] ) { res.json(false) };
+		//suc sql but value == null ( no confirm )
+		if ( results[0].confirmation_date == null ) res.json(false);
+		//suc sql & val got a filled date
+		else res.json(true);
+
+	}).on('error', (error)=>{
+		console.log('test ?' , error )
+	})
+
+})
 
 router.post('/add_user' , (req ,res )=>{
 
@@ -84,13 +104,13 @@ router.post('/add_user' , (req ,res )=>{
 			var transporter = nodemailer.createTransport({
 			  service: 'gmail',
 			  auth: {
-			    user: 'g.dock666@gmail.com',
-			    pass: 'doudou02'
+			    user: 'bobbles.v0@gmail.com',
+			    pass: '38syUQ6Ea'
 			  }
 			});
 
 			var mailOptions = {
-			  from: 'g.dock666@gmail.com',
+			  from: '',
 			  to: 'dockguillaume@gmail.com',
 			  subject: 'Bobbles account validation',
 			  text: 'Please follow de link below for your Bobbles\'s acc validation\n\r\n http://localhost:4200/account-validation/' + confirmation_code
@@ -210,10 +230,6 @@ router.post('/ask_tokenValidity' , (req,res)=>{
 		res.json( false );
 	});
 })
-
-
-
-
 
 router.get('/test_device' , (req, res ) => {
 

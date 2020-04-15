@@ -39,7 +39,14 @@ export class AuthService {
         tokenIsValid
         .then(( currentRoute : string )=>{
             this.isAuth = true;
-            if( ['/auth' , '', '/'].includes( currentRoute) ) this.router.navigate(['/appareils']);
+
+            if( currentRoute === '/logout' ){
+                let token : string = localStorage.getItem('token');
+                let tokenDel = this.signOut( token );
+                tokenDel.then((v)=>{ this.router.navigate(['/auth'])  });
+            }else if( ['/auth' , '', '/'].includes( currentRoute) ) this.router.navigate(['/sologame']);
+            
+            
         })
         .catch(()=>{
             this.isAuth = false;
@@ -112,22 +119,32 @@ export class AuthService {
             this.httpClient
             .get('http://localhost:8080/api/user/validation_user?token='+ token )
             .subscribe((data : any) => {
-    
-                // if( data.message === "" ) {
-                //     this.alertService.success( 'Compte crée avec succes ! =)' , this.alertOptions );
-                //     return true;
-                // } 
-    
-                // this.alertService.error( data.message , this.alertOptions );
-                console.log(" data reveive by ang after get on acc validation => " ,  data );
                 resolve( data );
-                // if( 1 == 2 ) reject(  data );
-    
-    
             });
-
         });
 
+
+
+    }
+
+    isValidate( token : string ){
+        let emailIsValid = new Promise( (resolve, reject) => {
+
+            this.httpClient
+            .get('http://localhost:8080/api/user/emailIsValid_user?token='+ token )
+            .subscribe((data : any) => {
+                console.log('HCECK DAT OUT >> ', data, token );
+                if( data ) resolve( data );else reject( data );
+            });
+        });
+
+        emailIsValid
+        .then((val)=>{
+            if(val) console.log('email a été valider'); else this.alertService.error('L\'adresse email liée à ce compte n\'a toujours pas été valider ! ');
+        })
+        .catch((val)=>{
+            this.alertService.error('L\'adresse email liée à ce compte n\'a toujours pas été valider ! ');
+        });
 
 
     }

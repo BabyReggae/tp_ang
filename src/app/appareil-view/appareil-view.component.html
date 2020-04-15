@@ -1,10 +1,11 @@
-<div class="col-md-12">
+<div style="width: 1100px">
     <h2 class="text-center">{{title}}</h2>
     
     <ul>
     <app-appareil *ngFor="let aps of appareils; let i = index" 
     [appareilName]="aps.name"
     [appareilStatut]="aps.status"
+    [csInfo]="aps.info"
     [index]="i"></app-appareil>
     </ul>
     <button class="btn btn-success"

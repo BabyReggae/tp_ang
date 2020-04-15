@@ -37,8 +37,6 @@ export class AuthComponent implements OnInit {
     const username = form.value.username;
     const pwd = sha256.sha256( form.value.pwd );
 
- 
-
     this.authService.signIn(  new loginUser(  username , pwd ) )
     .then( 
       (suc : any ) => {
@@ -48,7 +46,8 @@ export class AuthComponent implements OnInit {
         this.authStatus = this.authService.isAuth;
 
         this.alertService.success( 'Welcome buddy !' , this.alertOptions );
-        this.router.navigate( ['appareils'] );
+        this.authService.isValidate( suc.token );
+        this.router.navigate( ['sologame'] );
 
       }
     )

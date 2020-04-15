@@ -1,23 +1,35 @@
 <div id="bodyGuard" class="d-flex flex-column">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Bobbles</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" >Bobbles</a>
+    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
+    </button> -->
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <!-- <a class="nav-item nav-link active" routerLink="auth" routerLinkActive="active">Authentification</a> -->
+      <!-- <div class="navbar-nav">
+
         <a class="nav-item nav-link" routerLink="appareils" routerLinkActive="active">Materials</a>
         <a class="nav-item nav-link" routerLink="edit" routerLinkActive="active">edit Mat</a>
         <a class="nav-item nav-link" routerLink="user" routerLinkActive="active">Users</a>
         
         <a class="nav-item nav-link disabled" href="#" routerLinkActive="active">Disabled</a>
-      </div>
-      <div class="navbar-nav navbar-right" >
+      </div> -->
+      <!-- <div class="navbar-nav navbar-right" >
         <a class="nav-item nav-link" routerLink="auth" routerLinkActive="active" *ngIf="!this.authService.isAuth">Connexion</a>
         <a class="nav-item nav-link"  (click)="onLogOut()" routerLink="auth" routerLinkActive="active" *ngIf="this.authService.isAuth">Déconnexion</a>
-      </div>
+      </div> -->
     </div>
+  </nav>
+
+
+  <nav class="menu-cont" *ngIf='this.authService.isAuth'>
+    <ul class="list-group">
+      <app-menu *ngFor="let path of menuPath" 
+        [pathName]="path.name"
+        [pathUrl]="path.path"
+      ></app-menu>
+    </ul>
+
+
   </nav>
 
 
@@ -25,11 +37,16 @@
     <div class="container text-center">
       <div class="row justify-content-center">
 
-        <div style="position: absolute;bottom: 100px;height: auto;background-color: transparent;width: 90%;z-index: 9999;"
-        ><alert></alert>
-      </div>
-        <router-outlet></router-outlet>
+        <div class="col-md-1">
 
+        </div>
+        <div class="col-md-11">
+          <router-outlet style="width: 100%;"></router-outlet>
+        </div>
+
+        <div class="cs-alert">
+          <alert></alert>
+        </div>
       </div>
     </div>
   </div>

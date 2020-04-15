@@ -21,7 +21,8 @@ export class AppareilService {
         {
             id: 3,
             name: 'Ordinateur',
-            status: 0
+            status: 0,
+            info : "bite"
         }
     ];
 
@@ -29,14 +30,14 @@ export class AppareilService {
 
     logFromBdd(){
         // Make the HTTP request:
-        this.httpClient
-        .get('http://localhost:8080/get_allUsers?param1=truc')
-        .subscribe(data => console.log("data1 : " , data));
+        // this.httpClient
+        // .get('http://localhost:8080/get_allUsers?param1=truc')
+        // .subscribe(data => console.log("data1 : " , data));
 
-        this.httpClient
-        .post('http://localhost:8080/post_test', { coucou : "bonsoir "} )
-        .subscribe(data => console.log( "data2 : ", data));
-
+        // this.httpClient
+        // .post('http://localhost:8080/post_test', { coucou : "bonsoir "} )
+        // .subscribe(data => console.log( "data2 : ", data));
+        console.log("commented code");
     }
 
 

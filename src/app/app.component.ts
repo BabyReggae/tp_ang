@@ -1,16 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+
 import { AppareilService } from './services/appareil.service';
 import { AuthService } from './services/auth.service';
-import { AuthComponent } from './auth/auth.component'
+
+
+import { AuthComponent } from './auth/auth.component';
 import { Subscription, Observable, interval } from 'rxjs';
 import { NavigationEnd, Router, NavigationStart } from '@angular/router';
+import { MenuComponent } from './menu/menu.component';
+import { MenuService } from './services/menu.service';
+import { AlertService } from './alert';
+
 
 
 //parce que c'est pas drole sinon
 declare var $:any;
 declare var testClass:any;
 declare var start:any;//FROM BOBBLES JS FILE
+
+
 
 
 
@@ -22,12 +31,12 @@ declare var start:any;//FROM BOBBLES JS FILE
 
 
 export class AppComponent implements OnInit {
+    MenuService: Subscription;
   //test inport fontawsome icons
-    constructor(private authService: AuthService , private router: Router ){
+    constructor(private authService: AuthService , private router: Router, private menuService : MenuService,  protected alertService: AlertService ){
 
       router.events.subscribe((val : any) => {
         // see also 
-        
         if( val instanceof NavigationEnd )  this.authService.session_watcher( val.url );
       // NavigationEnd
       // NavigationCancel
@@ -38,42 +47,33 @@ export class AppComponent implements OnInit {
 
     }
 
-    
     secondes: number;
     counterSubscription: Subscription;
+    menuPath : Array<any>;
+    menuSubscription : Subscription;
   
     ngOnInit() {
-      console.log('Mais tout a fais oui !')
-      // testClass.testMethode();
+
+      this.menuSubscription = this.menuService.menuSubject.subscribe( 
+        ( path: any[] ) => {
+          this.menuPath = path;
+        }
+      )
+      this.menuService.emitMenuSubject();
+
+      //mail validation check
+
+      //js game init
       start();
-
-
-      // const counter = interval(1000);
-      // this.counterSubscription = counter.subscribe(
-      //   (value) => {
-      //     // console.log( value );
-      //     this.secondes = value;
-      //   },
-      //   (error) => {
-      //     console.log('Uh-oh, an error occurred! : ' + error);
-      //   },
-      //   () => {
-      //     console.log('Observable complete!');
-      //   }
-      // );
-
-
     }
   
     ngOnDestroy() {
-      console.log('enfaite non mais oui')
+      console.log('app componnent triggered ngOnDestroy')
     }
 
     onLogOut(){
-    
       let token : string = localStorage.getItem('token');
       this.authService.signOut( token );
-      // this.AuthComponent.aut = this.authService.isAuth
     }
 
 
