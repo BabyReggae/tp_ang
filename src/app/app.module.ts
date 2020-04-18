@@ -30,6 +30,9 @@ import { SettingsComponent } from './settings/settings.component';
 import { LogoutComponent } from './logout/logout.component';
 import { MenuService } from './services/menu.service';
 import { MenuComponent } from './menu/menu.component';
+import { ShopSkinComponent } from './shop-skin/shop-skin.component';
+import { ShopOwnedComponent } from './shop-owned/shop-owned.component';
+import { ShopPromotionComponent } from './shop-promotion/shop-promotion.component';
 
 
 
@@ -43,6 +46,7 @@ const appRoutes: Routes = [
   { path: 'user', canActivate : [ AuthGuard ],component: UserListComponent },
 
   /** main APPs Routes */
+  { path : 'root', canActivate : [ AuthGuard ], redirectTo : 'sologame' },
   { path: 'sologame', canActivate : [ AuthGuard ],component: SoloGameComponent },
   { path: 'shop', canActivate : [ AuthGuard ],component: ShopComponent },
   { path: 'profil', canActivate : [ AuthGuard ],component: ProfilComponent },
@@ -51,10 +55,16 @@ const appRoutes: Routes = [
   { path: 'logout', canActivate : [ AuthGuard ],component: LogoutComponent },
   /** end main routes */
 
+  /** SHOP */
+  { path: 'shopowned', canActivate : [ AuthGuard ],component: ShopOwnedComponent },
+  { path: 'shoppromotion', canActivate : [ AuthGuard ],component: ShopPromotionComponent },
 
+
+  /** special routes  */
   { path: '', component: AuthComponent },
   { path : 'not-found', component : NotFound404Component },
   { path : '**', redirectTo : 'not-found' }
+  
 ];
 
 
@@ -76,7 +86,10 @@ const appRoutes: Routes = [
     RankComponent,
     SettingsComponent,
     LogoutComponent,
-    MenuComponent
+    MenuComponent,
+    ShopSkinComponent,
+    ShopOwnedComponent,
+    ShopPromotionComponent,
 
   ],
   imports: [

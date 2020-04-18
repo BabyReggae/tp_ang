@@ -1,23 +1,7 @@
 <div id="bodyGuard" class="d-flex flex-column">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbarbar">
     <a class="navbar-brand" >Bobbles</a>
-    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button> -->
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <!-- <div class="navbar-nav">
-
-        <a class="nav-item nav-link" routerLink="appareils" routerLinkActive="active">Materials</a>
-        <a class="nav-item nav-link" routerLink="edit" routerLinkActive="active">edit Mat</a>
-        <a class="nav-item nav-link" routerLink="user" routerLinkActive="active">Users</a>
-        
-        <a class="nav-item nav-link disabled" href="#" routerLinkActive="active">Disabled</a>
-      </div> -->
-      <!-- <div class="navbar-nav navbar-right" >
-        <a class="nav-item nav-link" routerLink="auth" routerLinkActive="active" *ngIf="!this.authService.isAuth">Connexion</a>
-        <a class="nav-item nav-link"  (click)="onLogOut()" routerLink="auth" routerLinkActive="active" *ngIf="this.authService.isAuth">Déconnexion</a>
-      </div> -->
-    </div>
+    <div  style="position: absolute;right: 1vw;"><fa-icon [icon]="faCoins" class="text-warning"></fa-icon> {{ playerGold }}</div>
   </nav>
 
 

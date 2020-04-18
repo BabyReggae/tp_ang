@@ -148,4 +148,17 @@ export class AuthService {
 
 
     }
+
+    playerGold(){
+        return new Promise((resolve,reject)=>{
+          let token : string = localStorage.getItem('token');
+          this.httpClient
+          .get('http://localhost:8080/api/user/get_userGold?token='+ token )
+          .subscribe( (data : any) => {
+            resolve( data );
+          });
+        })
+    
+      }
+    
 }

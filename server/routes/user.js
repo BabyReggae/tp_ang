@@ -231,6 +231,35 @@ router.post('/ask_tokenValidity' , (req,res)=>{
 	});
 })
 
+router.get('/get_userGold?' , (req, res ) => {
+	let params = req.query, token;
+	if ( ! params.token ) res.send( false );else token = params.token;
+
+    let reqUid = `SELECT player_id from player_token WHERE token ='${ token }'`;
+
+    let uid = new Promise( (resolve, reject)=>{
+        connection.query( reqUid, function(error, results, fields) {    
+            if (error) throw error;
+            resolve( results[0].player_id );
+        });
+	})
+	
+	uid.then((id)=>{
+		let goldReq = `SELECT gold FROM player WHERE id='${ id }'`;
+		connection.query( goldReq, function(error, results, fields) {    
+			if (error) throw error;
+			res.json(  results[0].gold );
+		});
+	})
+})
+
+
+
+
+
+/* /////////////////////////// TEST //////////////////////////// */
+
+
 router.get('/test_device' , (req, res ) => {
 
 	console.log();

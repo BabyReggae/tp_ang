@@ -3,6 +3,7 @@ const router = express.Router();
 
 router.use( '/user' , require('./user.js') );
 router.use( '/item' , require('./item.js') );
+router.use( '/skin' , require('./skin.js') );
 
 
 router.get('/', (req,res)=> {

@@ -1,1 +1,18 @@
-<p>shop works!</p>
+<div class="w-100 p-3 overflow-auto" style="background-color: transparent;height: 70vh;margin-top: 5vh;">
+    <div class="container-fluid">
+        <div class="row">
+
+            <app-shop-skin class="col-sm-3 p-2" style="min-height: 200px;text-align: center;" 
+                *ngFor="let skin of skins; index as i"
+                [name]="skin.name"
+                [price]="skin.price"
+                [img]="skin.img_url"
+                [owned]="skin.owned"
+                [index]="i"
+            >
+            </app-shop-skin>
+        
+            
+        </div>
+    </div>
+</div>
