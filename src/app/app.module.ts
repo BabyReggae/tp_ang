@@ -37,6 +37,7 @@ import { ShopPromotionComponent } from './shop-promotion/shop-promotion.componen
 
 
 
+
 const appRoutes: Routes = [
   { path: 'auth', component: AuthComponent },
   { path : 'account-validation/:token', component: AccValidationComponent  },
@@ -100,7 +101,6 @@ const appRoutes: Routes = [
     FontAwesomeModule,
     RouterModule.forRoot(appRoutes),
     AlertModule,
-
   ],
   providers: [
     AppareilService,

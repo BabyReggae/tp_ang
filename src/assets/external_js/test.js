@@ -1,12 +1,1 @@
-class monTestClass{
-
-    constructor(){
-        // this.init();
-    }
-
-    init(){
-        alert('loaded');
-    }
-}
-
-export default monTestClass;
+alert("euh ... bin oui enfaite ");
