@@ -33,6 +33,8 @@ import { MenuComponent } from './menu/menu.component';
 import { ShopSkinComponent } from './shop-skin/shop-skin.component';
 import { ShopOwnedComponent } from './shop-owned/shop-owned.component';
 import { ShopPromotionComponent } from './shop-promotion/shop-promotion.component';
+import { CsModalComponent } from './cs-modal/cs-modal.component';
+import { ModalService } from './services/modal.service';
 
 
 
@@ -91,6 +93,7 @@ const appRoutes: Routes = [
     ShopSkinComponent,
     ShopOwnedComponent,
     ShopPromotionComponent,
+    CsModalComponent,
 
   ],
   imports: [
@@ -108,7 +111,8 @@ const appRoutes: Routes = [
     AuthGuard,
     UserService,
     HttpClientModule,
-    MenuService
+    MenuService,
+    ModalService
   ],
   bootstrap: [AppComponent]
 })

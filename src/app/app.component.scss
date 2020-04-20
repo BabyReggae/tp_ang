@@ -15,10 +15,12 @@
 
 #sticky-footer {
   flex-shrink: 0;
+  background-color: rgb(27, 35, 44);
 }
 
 .navbarbar{
   height: 6vh;
+  background-color: rgb(27, 35, 44);;
 }
 
 .navbar-right{
@@ -52,3 +54,21 @@
   box-sizing: content-box;
 }
 
+.profilIcon{
+  border: 1px solid #333333;
+  border-radius: 50%;
+  float: left;
+  overflow: hidden;
+  width: 40px;
+  height: 40px;
+  border: 2px solid ghostwhite;
+  cursor: pointer;
+}
+
+.iconBg{
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

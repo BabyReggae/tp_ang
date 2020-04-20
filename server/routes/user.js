@@ -38,6 +38,89 @@ router.get('/', (req,res) => {
 	res.send('user');
 });
 
+
+
+
+router.get('/get_all?', (req ,res )=> {
+	let token = req.query.token;
+
+	if ( token == undefined ) res.send( false );
+
+    let reqSel = `SELECT pt.player_id FROM player_token pt WHERE pt.token = '${ token }'`;
+	console.log( reqSel );
+
+	const getTokenId = new Promise(function(resolve, reject) {
+
+	    connection.query( reqSel , function(error, results, fields) {
+			if (error) {
+				reject( { code : error.code, message : error.sqlMessage  } );
+			}else{
+				if( results[0] ) resolve( results[0].player_id );
+				else res.send( false );
+			}
+	    });
+	});
+
+	getTokenId
+	.then((id)=> {
+
+		let sql = `SELECT * FROM player WHERE id='${ id }'`;
+
+	    connection.query( sql , function(error, results, fields) {
+			if (error) {
+				res.send( false )
+			}else{
+				if( results[0]) res.json( results[0] );else res.send( false );
+			}
+	    });
+
+	})
+
+
+});
+
+
+router.get('/get_user?', (req ,res )=> {
+	console.log( req.query );
+	let token = req.query.token;
+	let field = req.query.fieldName;
+	if ( token == undefined || field == undefined ) res.send( false );
+
+    let reqSel = `SELECT pt.player_id FROM player_token pt WHERE pt.token = '${ token }'`;
+	console.log( reqSel );
+	
+	const getTokenId = new Promise(function(resolve, reject) {
+
+	    connection.query( reqSel , function(error, results, fields) {
+			if (error) {
+				reject( { code : error.code, message : error.sqlMessage  } );
+			}else{
+				if( results[0] ) resolve( results[0].player_id );
+				else res.send( false );
+				
+			}
+	    });
+	});
+
+	getTokenId
+	.then((id)=> {
+
+		let sql = `SELECT ${ field } FROM player WHERE id='${ id }'`;
+
+	    connection.query( sql , function(error, results, fields) {
+			if (error) {
+				res.send( false )
+			}else{
+				if( results[0]) res.json( results[0][ field ] );else res.send( false );
+				
+			}
+	    });
+
+	})
+
+
+});
+
 router.get('/validation_user?', (req ,res )=> {
 	let params = req.query;
 	if ( ! params.token ) res.send( false );
@@ -86,6 +169,32 @@ router.get('/emailIsValid_user?', (req,res)=>{
 		console.log('test ?' , error )
 	})
 
+})
+
+router.get('/get_userGold?' , (req, res ) => {
+	let params = req.query, token;
+	console.log( params );
+	if ( ! params.token ) res.send( false );else token = params.token;
+	console.log('ITS CONTINUE => ' ,  token);
+
+    let reqUid = `SELECT player_id from player_token WHERE token ='${ token }'`;
+
+    let uid = new Promise( (resolve, reject)=>{
+        connection.query( reqUid, function(error, results, fields) {    
+			if (error) throw error;
+			
+			if( results[0] === undefined ) res.send(false);
+			else resolve( results[0].player_id );
+        });
+	})
+	
+	uid.then((id)=>{
+		let goldReq = `SELECT gold FROM player WHERE id='${ id }'`;
+		connection.query( goldReq, function(error, results, fields) {    
+			if (error) throw error;
+			res.json(  results[0].gold );
+		});
+	})
 })
 
 router.post('/add_user' , (req ,res )=>{
@@ -231,27 +340,52 @@ router.post('/ask_tokenValidity' , (req,res)=>{
 	});
 })
 
-router.get('/get_userGold?' , (req, res ) => {
-	let params = req.query, token;
-	if ( ! params.token ) res.send( false );else token = params.token;
+router.post('/upd_user' , (req,res)=>{
 
-    let reqUid = `SELECT player_id from player_token WHERE token ='${ token }'`;
+	let token = req.body.token,
+		updTargLabel = req.body.fieldName,
+		updTargValue = req.body.fieldValue;
 
-    let uid = new Promise( (resolve, reject)=>{
-        connection.query( reqUid, function(error, results, fields) {    
-            if (error) throw error;
-            resolve( results[0].player_id );
-        });
-	})
-	
-	uid.then((id)=>{
-		let goldReq = `SELECT gold FROM player WHERE id='${ id }'`;
-		connection.query( goldReq, function(error, results, fields) {    
-			if (error) throw error;
-			res.json(  results[0].gold );
+	console.log('AT BEGIN UPD => ' , req.body );
+
+	if( token == undefined || updTargLabel == undefined ) res.send( false );
+
+    let reqSel = `SELECT pt.player_id FROM player_token pt WHERE pt.token = '${ token }'`;
+
+	const getTokenId = new Promise(function(resolve, reject) {
+
+	    connection.query( reqSel , function(error, results, fields) {
+			if (error) {
+				reject( { code : error.code, message : error.sqlMessage  } );
+			}else{
+				resolve( results[0].player_id );
+			}
+	    });
+	});
+
+	getTokenId
+	.then(function(id) {
+
+		let reqUpd = `UPDATE player SET ${ updTargLabel }='${ updTargValue }' WHERE  id= '${ id }'`;
+		console.log( reqUpd );
+		connection.query( reqUpd , function(error, results, fields) {
+			if (error) {
+				console.log( { code : error.code, message : error.sqlMessage  } );
+				res.send( false ); 
+			}else{
+				res.send( true );
+			}
 		});
+
+
 	})
+	.catch(function(value){
+		console.log("ERROR => " , value )
+		res.json( false );
+	});
 })
+
+
 
 
 

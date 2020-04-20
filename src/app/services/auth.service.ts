@@ -5,13 +5,15 @@ import { loginUser } from '../models/loginUser.model';
 import { Router } from '@angular/router';
 import { AlertService } from '../alert';
 import { promise } from 'protractor';
+import { ModalService } from './modal.service';
+import { modal } from '../models/modal.model';
 
 declare var $:any;
 
 @Injectable()
 export class AuthService {
 
-    constructor( private httpClient: HttpClient, private router: Router , protected alertService: AlertService ){}
+    constructor( private httpClient: HttpClient, private router: Router , protected alertService: AlertService, private modalService:ModalService ){}
 
     
     isAuth = false;
@@ -32,13 +34,13 @@ export class AuthService {
                     console.log( "Data from token auto check => " , data );
                     if( data ) resolve(routerEventInfo); else reject();
                 });
-
             }   
         );
 
         tokenIsValid
         .then(( currentRoute : string )=>{
             this.isAuth = true;
+            this.onLoginSuccess();
 
             if( currentRoute === '/logout' ){
                 let token : string = localStorage.getItem('token');
@@ -65,7 +67,8 @@ export class AuthService {
             .subscribe( (data : any) => {
                 if( data.token ){
                     this.isAuth = true;
-                    //store token somewhere ? 
+                    //store token somewhere ?
+                    this.onLoginSuccess();
                     resolve( data );
                 }else{
                     this.isAuth = false;
@@ -122,9 +125,6 @@ export class AuthService {
                 resolve( data );
             });
         });
-
-
-
     }
 
     isValidate( token : string ){
@@ -151,14 +151,36 @@ export class AuthService {
 
     playerGold(){
         return new Promise((resolve,reject)=>{
-          let token : string = localStorage.getItem('token');
-          this.httpClient
-          .get('http://localhost:8080/api/user/get_userGold?token='+ token )
-          .subscribe( (data : any) => {
+            let token : string = localStorage.getItem('token');
+            this.httpClient
+            .get('http://localhost:8080/api/user/get_userGold?token='+ token )
+            .subscribe( (data : any) => {
             resolve( data );
-          });
+            });
         })
     
-      }
+    }
     
+    onLoginSuccess(){
+        let token : string = localStorage.getItem('token');
+        //load user gold ? 
+
+        //check if user got nickname if not display modal
+        let getNickName = new Promise( (resolve, reject) => {
+
+            this.httpClient
+            .get('http://localhost:8080/api/user/get_user?token='+ token +'&fieldName=nickname' )
+            .subscribe((data : any) => {
+                resolve(data);
+            });
+        });
+
+        getNickName.then(( nickname )=>{
+            if( nickname === null ) 
+                this.modalService.print( new modal( "Welcome", "Pls, fill the below input with your 'Player Name' =) ", "NickName" ) );
+        }).catch(()=>{
+            console.log('Error when fetch nickname');
+        })
+
+    }
 }

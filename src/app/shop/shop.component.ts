@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AlertService } from '../alert';
 import { AppComponent } from '../app.component';
 import { AuthService } from '../services/auth.service';
+import { ModalService } from '../services/modal.service';
+import { modal } from '../models/modal.model';
 
 @Component({
   selector: 'app-shop',
@@ -16,11 +18,18 @@ export class ShopComponent implements OnInit {
   skins : Array<any>
 
 
-  constructor(private httpClient: HttpClient, private router: Router , protected alertService: AlertService, private appComponent : AppComponent, private authService : AuthService) { }
+  constructor(
+    private httpClient: HttpClient, 
+    private router: Router , 
+    protected alertService: AlertService, 
+    private appComponent : AppComponent, 
+    private authService : AuthService,
+    private modalService : ModalService
+    ) { }
 
   ngOnInit() {
 
-    let loadSkin: Promise<any> = new Promise((resolve,reject)=>{
+      let loadSkin: Promise<any> = new Promise((resolve,reject)=>{
 
       this.httpClient
       .get('http://localhost:8080/api/skin/get_all' )

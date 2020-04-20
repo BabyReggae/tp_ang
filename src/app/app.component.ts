@@ -1,22 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { filter, pairwise } from 'rxjs/operators';
 
-
-import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
-
 import { AppareilService } from './services/appareil.service';
 import { AuthService } from './services/auth.service';
-
-
 import { AuthComponent } from './auth/auth.component';
+
 import { Subscription, Observable, interval } from 'rxjs';
 import { NavigationEnd, Router, NavigationStart, RoutesRecognized } from '@angular/router';
 import { MenuService } from './services/menu.service';
 import { AlertService } from './alert';
 
-
-
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { faCoins } from '@fortawesome/free-solid-svg-icons';
+import { ModalService } from './services/modal.service';
+import { modal } from './models/modal.model';
 
 
 
@@ -37,11 +34,18 @@ declare var start:any;//FROM BOBBLES JS FILE
 
 export class AppComponent implements OnInit {
     
+    modal:any = { title :"default" ,bodyText :"default" ,inputLabel : "default",display : "false"};
     faCoins = faCoins;
     playerGold:number;
-
     MenuService: Subscription;
-    constructor(private authService: AuthService , private router: Router, private menuService : MenuService,  protected alertService: AlertService ){
+
+    constructor(
+      private authService: AuthService , 
+      private router: Router, 
+      private menuService : MenuService,
+      private modalService:ModalService, 
+      protected alertService: AlertService,
+    ){
 
       router.events.subscribe((val : any) => {
         // see also 
@@ -56,15 +60,11 @@ export class AppComponent implements OnInit {
         // RoutesRecognized
       });
 
-
-
-
     }
 
-    secondes: number;
-    counterSubscription: Subscription;
     menuPath : Array<any>;
     menuSubscription : Subscription;
+    modalSubscription : Subscription;
   
     ngOnInit() {
 
@@ -82,6 +82,16 @@ export class AppComponent implements OnInit {
         }
       )
       this.menuService.emitMenuSubject();
+      
+      this.modalSubscription = this.modalService.modalSubject.subscribe
+      ( 
+        ( data: any[] ) => {
+          this.modal = data[0];
+        }
+      )
+      //this.modalService.emitModalSubject();
+      // this.modalService.print( new modal( "Welcome", "Pls, fill the below input with your 'Player Name' =) ", "NickName" ) );
+
 
       //load main board related data // TRIGGER ON_SESSION CONNECT ! 
       this.authService.playerGold().then((gold)=>{
@@ -103,9 +113,10 @@ export class AppComponent implements OnInit {
       this.authService.signOut( token );
     }
 
-    updatePlayerGold( curGold ){
+    updatePlayerGold( curGold:any ){
       this.playerGold = curGold;
     }
+
 
   // faThumbsUp = faThumbsUp;
   // title = "Posts Panel";

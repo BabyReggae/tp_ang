@@ -1,0 +1,29 @@
+<div class="modal-cont-bg">
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="modal-cont">
+                    
+                    <form class="modal-box border border-success rounded text-white"
+                    (ngSubmit)="onSubmitForm(m)" #m="ngForm">
+                        <div class="closure-cont border-success" (click)="closeModal()">X</div>
+                        <h1 class="mt-1">{{ title }}</h1>
+                        <hr class="w-75">
+                        <p class="font-weight-bold">{{ bodyText }}</p>
+
+                        <div class="input-group w-75 m-0 m-auto mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">{{ inputLabel }}</span>
+                            </div>
+                            <input type="text" class="form-control" name="inputVal" ngModel required>
+                        </div>
+                        <br>
+                        <div class="w-75 m-0 m-auto mt-3">
+                            <button type="submit" class="btn btn-outline-success" [disabled]="m.invalid"  [ngClass]="{'disabled': m.invalid}">Valider</button><!--	-->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
